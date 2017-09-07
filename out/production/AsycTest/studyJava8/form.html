@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+function update(item){
+return function (text){
+$("div#"+item).html(text);
+}
+}
+function refresh(url, callback){
+var params = {
+type : "echo",
+data : ""
+};
+$.ajax({
+type:"post",
+url:url,
+cache: false ,
+async: true ,
+dataType:"json",
+data:params,
+success:  function (data, status){
+callback(data);
+},
+error:  function (err){
+alert("error : "+err);
+}
+});
+}
+refresh("action.do/op=1", update("content1"));
+refresh("action.do/op=2", update("content2"));
+refresh("action.do/op=3", update("content3"));
+</body>
+</html>
